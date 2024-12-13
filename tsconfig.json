@@ -12,7 +12,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["jest", "@testing-library/jest-dom"],
     "incremental": true,
     "plugins": [
       {
@@ -29,10 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/**/*",
-    "global.d.ts",
-    "app/components/FacebookSDK.jsx",
-    "app/api/instagram/auth/route.js",
-    "app/api/instagram/callback/route.js"
+    "global.d.ts"
   ],
   "exclude": ["node_modules"]
 }
