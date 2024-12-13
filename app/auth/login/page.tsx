@@ -12,7 +12,7 @@ export default function LoginPage() {
   useEffect(() => {
     async function fetchPosts() {
       const response = await fetch(
-        `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=IGQWRPVzlfUHhNRkx2ZA0Fwd1pHY0V3a2piZA0ZAsd0FBX1VVeDZARbm11bnhaWWEtU2gxVk9qRnRYdHlVaGM1UHVSUkRNOW5XV3JLSWM5bDdQcGtkMzRYeXlsMlE3RzZAhM0lzZAU40bUdMQmNNX3pRMDBDVm04cVZAsVVEZD`
+        `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=IGQWROTHpTTTNVZAE1TNWdYQzloMzYzOVpxNmJoSy1MdnZAxeEp5QzZAUckNJRlpfU1NBMGozNndPWHctWjdIb3otaUl3d2ZAEbW9RSG9HZAS1CMG5zTUlNbWRmQ3dROTRCSk1PV3RxMV9tbERlYlBCaXBvbnBQd2J3UWMZD`
       );
       const data = await response.json();
       console.log(data);
