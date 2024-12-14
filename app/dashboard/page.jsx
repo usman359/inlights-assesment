@@ -6,34 +6,34 @@ import { useSession } from "next-auth/react";
 export const dynamic = "force-dynamic"; // Disable static rendering
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession(); // Access session data and status
+  // const { data: session, status } = useSession(); // Access session data and status
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // sessionStorage.setItem("session", JSON.stringify(session));
 
-  // Redirect unauthenticated users to login (optional)
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      alert("You are not authenticated. Redirecting to login...");
-      window.location.href = "/login";
-    }
-  }, [status]);
+  // // Redirect unauthenticated users to login (optional)
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     alert("You are not authenticated. Redirecting to login...");
+  //     window.location.href = "/login";
+  //   }
+  // }, [status]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (!session?.accessToken) {
-        console.log("Access token not available yet.");
-        return;
-      }
+      // if (!session?.accessToken) {
+      //   console.log("Access token not available yet.");
+      //   return;
+      // }
 
-      alert(`Session: ${JSON.stringify(session)}`);
-      alert(`Access Token: ${session.accessToken}`);
+      // alert(`Session: ${JSON.stringify(session)}`);
+      // alert(`Access Token: ${session.accessToken}`);
 
       setLoading(true);
       try {
         const response = await fetch(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${session.accessToken}`
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
         );
         const data = await response.json();
 
@@ -50,12 +50,12 @@ export default function DashboardPage() {
       }
     };
 
-    if (status === "authenticated") {
-      fetchPosts();
-    }
-  }, [session, status]);
+    // if (status === "authenticated") {
+    fetchPosts();
+    // }
+  }, []);
 
-  if (status === "loading" || loading) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
