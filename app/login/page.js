@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 export default function LoginPage() {
   const handleLogin = () => {
     console.log("Login with Instagram");
-    signIn("instagram");
+    signIn("instagram", { callbackUrl: "/dashboard" });
   };
 
   return (

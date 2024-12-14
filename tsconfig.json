@@ -30,7 +30,7 @@
     "src/**/*",
     "global.d.ts",
     "app/api/auth/[...nextauth]/route.js",
-    "app/dashboard/page.tsx",
+    "app/dashboard/page.jsx",
     "app/lib/instagram.js",
     "app/components/instagram/PostGrid.jsx",
     "app/auth/login/page.jsx",

@@ -31,6 +31,13 @@ const handler = NextAuth({
       session.accessToken = token.accessToken;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // Redirect to dashboard if it's a successful login
+      if (url.startsWith(baseUrl)) {
+        return "/dashboard";
+      }
+      return baseUrl;
+    },
   },
 });
 

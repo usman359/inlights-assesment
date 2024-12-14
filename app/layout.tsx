@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { InstagramProvider } from "./contexts/InstagramContext";
+import "./globals.css";
+import Providers from "./session-provider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -23,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable}  antialiased`}>
-        <InstagramProvider>
-          <Toaster />
-          {children}
-        </InstagramProvider>
+        <Providers>
+          <InstagramProvider>
+            <Toaster />
+            {children}
+          </InstagramProvider>
+        </Providers>
       </body>
     </html>
   );
