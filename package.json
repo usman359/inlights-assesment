@@ -9,14 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.47.6",
+    "@auth/supabase-adapter": "^1.7.4",
+    "@hookform/resolvers": "^3.9.1",
+    "@next/env": "^15.1.0",
+    "@supabase/supabase-js": "^2.47.7",
     "axios": "^1.7.9",
+    "cloudinary": "^2.5.1",
+    "lucide-react": "^0.468.0",
     "next": "15.1.0",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.4.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

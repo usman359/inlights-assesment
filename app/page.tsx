@@ -1,24 +1,30 @@
-import React from "react";
-import Link from "next/link";
+"use client";
 
-export default function RootPage() {
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useInstagram } from "./contexts/InstagramContext";
+import { useRouter } from "next/navigation";
+
+export default function Page() {
+  const router = useRouter();
+  const { setPosts } = useInstagram();
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const response = await axios.get("/api/instagram_media");
+        console.log(response.data.data);
+        setPosts(response.data.data || []);
+      } catch (error) {
+        console.error("Error fetching Instagram media:", error);
+      }
+    }
+
+    fetchPosts();
+  }, [setPosts]); // Add dependency array
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-6">Welcome to Instagram App</h1>
-      <div className="flex space-x-4">
-        <Link
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-          href="/auth/login"
-        >
-          Login
-        </Link>
-        <Link
-          className="px-4 py-2 bg-green-500 text-white rounded"
-          href="/auth/signup"
-        >
-          Sign Up
-        </Link>
-      </div>
+    <div>
+      <button onClick={() => router.push("/posts")}>Go to posts</button>
     </div>
   );
 }

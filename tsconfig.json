@@ -28,7 +28,16 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/**/*",
-    "global.d.ts"
+    "global.d.ts",
+    "app/api/auth/[...nextauth]/route.js",
+    "app/dashboard/page.tsx",
+    "app/lib/instagram.js",
+    "app/components/instagram/PostGrid.jsx",
+    "app/auth/login/page.jsx",
+    "app/login/page.js",
+    "app/SessionProvider.ts",
+    "app/layout.jsx",
+    "app/posts/page.jsx"
   ],
   "exclude": ["node_modules"]
 }
