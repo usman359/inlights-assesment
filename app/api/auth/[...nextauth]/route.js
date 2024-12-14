@@ -7,9 +7,15 @@ const handler = NextAuth({
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
       authorization: {
+        url: "https://www.instagram.com/oauth/authorize", // Use custom authorization URL
         params: {
+          enable_fb_login: 0,
+          force_authentication: 1,
+          client_id: process.env.INSTAGRAM_CLIENT_ID,
+          redirect_uri: process.env.INSTAGRAM_REDIRECT_URI, // Explicit redirect URI
+          response_type: "code",
           scope:
-            "instagram_business_basic,instagram_business_manage_comments,instagram_business_manage_messages,instagram_business_content_publish",
+            "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_content_publish",
         },
       },
     }),
