@@ -10,6 +10,8 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      alert(session);
+      alert(session?.accessToken);
       if (!session?.accessToken) return;
       console.log(session);
 
