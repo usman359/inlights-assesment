@@ -82,31 +82,37 @@ export default function DashboardPage() {
     setIsPosting(true);
 
     try {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
+      for (const file of selectedFiles) {
+        const formData = new FormData();
+        formData.append("file", file);
 
-      const uploadResponse = await axios.post("/api/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        // Upload the file to Cloudinary
+        const uploadResponse = await axios.post("/api/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      const imageUrl = uploadResponse.data.imgUrl;
-      toast.success(`Image ${file.name} uploaded successfully to Cloudinary!`);
+        const imageUrl = uploadResponse.data.imgUrl; // Public URL of the uploaded image
+        toast.success(
+          `Image ${file.name} uploaded successfully to Cloudinary!`
+        );
 
-      await axios.post("/api/instagram_post", {
-        imageUrl,
-        caption,
-      });
+        // Post the image to Instagram
+        await axios.post("/api/instagram_post", {
+          imageUrl,
+          caption,
+        });
 
-      toast.success(`Image ${file.name} posted to Instagram successfully!`);
+        toast.success(`Image ${file.name} posted to Instagram successfully!`);
+      }
     } catch (error) {
-      console.error("Error posting image:", error);
-      toast.error("Failed to post the image.");
+      console.error("Error posting images:", error);
+      toast.error("Failed to post the images.");
     } finally {
       setIsPosting(false);
-      setSelectedFiles([]);
-      setCaption("");
+      setSelectedFiles([]); // Reset selected files
+      setCaption(""); // Reset caption
 
       // Clear the file input
       if (fileInputRef.current) {
