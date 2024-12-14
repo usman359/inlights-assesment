@@ -11,6 +11,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       if (!session?.accessToken) return;
+      console.log(session);
 
       setLoading(true);
       try {
@@ -35,14 +36,14 @@ export default function DashboardPage() {
     fetchPosts();
   }, [session?.accessToken]);
 
-  if (loading) return <div>Loading...</div>;
-  if (!posts.length) return <div>No posts available.</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (!posts.length) return <div>No posts available.</div>;
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">Your Instagram Posts</h1>
       <div className="grid grid-cols-3 gap-4 mt-4">
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <div key={post.id} className="border rounded p-2">
             {post.media_type === "IMAGE" ||
             post.media_type === "CAROUSEL_ALBUM" ? (
