@@ -11,14 +11,13 @@ export default function DashboardPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [caption, setCaption] = useState("");
   const [isPosting, setIsPosting] = useState(false);
-  const [url, setUrl] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=IGACDVB1ou9SZABZAE5QVldlSW5aZAzN1QXdPdEdfRkh4VFJydmZAtV1pwR1VES3RzbmVsN2ZA1dWtaSklOUDhQYnR0NmJlZAHZARSVF0amt5dHZAZAMzF2UzY0ZAHNRcjVOQmZAURFAzdGJlOTh6a0htSHlvMUJUdUNJdlpnMy14SnMzTU11TQZDZD`
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN}`
         );
         const data = await response.json();
 
@@ -66,12 +65,10 @@ export default function DashboardPage() {
     return <div>No posts available.</div>;
   }
 
-  // Handle file selection
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
 
-  // Post image to Instagram
   const handlePost = async () => {
     if (!selectedFile) {
       alert("Please select an image to upload.");
@@ -84,17 +81,14 @@ export default function DashboardPage() {
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      // Upload the file to Cloudinary
       const uploadResponse = await axios.post("/api/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      toast.success(uploadResponse.data.imgUrl);
-      console.log(uploadResponse.data.imgUrl);
       const imageUrl = uploadResponse.data.imgUrl; // Public URL of the uploaded image
-      console.log(imageUrl);
+      toast.success("Image uploaded to cloudinary successfully!");
 
       // Post the image to Instagram
       const response = await axios.post("/api/instagram_post", {
@@ -102,11 +96,11 @@ export default function DashboardPage() {
         caption,
       });
 
-      alert("Image posted successfully!");
+      toast.success("Image posted successfully!");
       console.log(response.data);
     } catch (error) {
       console.error("Error posting image:", error);
-      alert("Failed to post the image.");
+      toast.error("Failed to post the image.");
     } finally {
       setIsPosting(false);
       setSelectedFile(null);
@@ -120,10 +114,6 @@ export default function DashboardPage() {
         Your Instagram Posts
       </h1>
       <div className="p-4">
-        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
-          {url}
-        </h1>
-
         {/* File Upload Section */}
         <div className="bg-white shadow-lg rounded-lg p-6 mb-8 max-w-md mx-auto">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
