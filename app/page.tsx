@@ -1,5 +1,6 @@
 "use client";
 
+import { SessionProvider } from "next-auth/react";
 import LoginPage from "./login/page";
 
 export default function Page() {
@@ -20,8 +21,8 @@ export default function Page() {
   // }, [setPosts]); // Add dependency array
 
   return (
-    <div>
+    <SessionProvider>
       <LoginPage />
-    </div>
+    </SessionProvider>
   );
 }
