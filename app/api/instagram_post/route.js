@@ -15,7 +15,7 @@ export async function POST(req) {
 
     // Instagram Access Token (ensure this is a valid token with required permissions)
     const accessToken =
-      "IGQWRNNVBLOURkXzNQNW1EQnVXZAUZAST2xNSldrOWotcHhEY2FLZAEt5eUprbHhvSmZA5MnlPWTdnbDVRRmh4VHNma2dpMDVhVjM5cVZAKaThLMHM2ZAUp0bXhsU1QwR1I3U2FMV0gzSnNXUmxWZAm10TE9lUTlUVFFFblEZD";
+      "IGQWRPRUNmWlV3WndmNHpwUy1IMVlqR1BrUTJrYl9LQi0wMlR2Um1vVlE1R0NmcWlOYnZAxeHhMWHFkdkk4MEg5b1FfT2VZAVU5sNGpZAMndSVlkyWm5NclZAacDZAYRzFLRjZAkRWZAOWE1KSVFpeEJad2JfWnNpUS1mbGcZD";
 
     // Replace 'PAGE_ID' with your Facebook Page ID linked to the Instagram Business Account
     const pageId = "3006205006197762";
