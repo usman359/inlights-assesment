@@ -8,7 +8,7 @@ import { supabase } from "../lib/supabase";
 export default function DashboardPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [caption, setCaption] = useState("");
   const [isPosting, setIsPosting] = useState(false);
 
@@ -58,7 +58,11 @@ export default function DashboardPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (!posts.length) {
@@ -66,12 +70,12 @@ export default function DashboardPage() {
   }
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    setSelectedFiles(Array.from(e.target.files));
   };
 
   const handlePost = async () => {
-    if (!selectedFile) {
-      alert("Please select an image to upload.");
+    if (selectedFiles.length === 0) {
+      toast.error("Please select at least one image to upload.");
       return;
     }
 
@@ -87,24 +91,27 @@ export default function DashboardPage() {
         },
       });
 
-      const imageUrl = uploadResponse.data.imgUrl; // Public URL of the uploaded image
-      toast.success("Image uploaded to cloudinary successfully!");
+      const imageUrl = uploadResponse.data.imgUrl;
+      toast.success(`Image ${file.name} uploaded successfully to Cloudinary!`);
 
-      // Post the image to Instagram
-      const response = await axios.post("/api/instagram_post", {
+      await axios.post("/api/instagram_post", {
         imageUrl,
         caption,
       });
 
-      toast.success("Image posted successfully!");
-      console.log(response.data);
+      toast.success(`Image ${file.name} posted to Instagram successfully!`);
     } catch (error) {
       console.error("Error posting image:", error);
       toast.error("Failed to post the image.");
     } finally {
       setIsPosting(false);
-      setSelectedFile(null);
+      setSelectedFiles([]);
       setCaption("");
+
+      // Clear the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Reset the input value to clear displayed file names
+      }
     }
   };
 
@@ -120,8 +127,10 @@ export default function DashboardPage() {
             Upload a New Image
           </h2>
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
+            multiple
             onChange={handleFileChange}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
           />
