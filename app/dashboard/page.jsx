@@ -4,16 +4,27 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function DashboardPage() {
-  const { data: session } = useSession(); // Access session data
+  const { data: session, status } = useSession(); // Access session data and status
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Redirect unauthenticated users to login (optional)
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      alert("You are not authenticated. Redirecting to login...");
+      window.location.href = "/login";
+    }
+  }, [status]);
+
   useEffect(() => {
     const fetchPosts = async () => {
-      // alert(session);
-      alert(session?.accessToken);
-      if (!session?.accessToken) return;
-      console.log(session);
+      if (!session?.accessToken) {
+        console.log("Access token not available yet.");
+        return;
+      }
+
+      alert(`Session: ${JSON.stringify(session)}`);
+      alert(`Access Token: ${session.accessToken}`);
 
       setLoading(true);
       try {
@@ -35,17 +46,24 @@ export default function DashboardPage() {
       }
     };
 
-    fetchPosts();
-  }, [session?.accessToken]);
+    if (status === "authenticated") {
+      fetchPosts();
+    }
+  }, [session, status]);
 
-  // if (loading) return <div>Loading...</div>;
-  // if (!posts.length) return <div>No posts available.</div>;
+  if (status === "loading" || loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!posts.length) {
+    return <div>No posts available.</div>;
+  }
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">Your Instagram Posts</h1>
       <div className="grid grid-cols-3 gap-4 mt-4">
-        {posts?.map((post) => (
+        {posts.map((post) => (
           <div key={post.id} className="border rounded p-2">
             {post.media_type === "IMAGE" ||
             post.media_type === "CAROUSEL_ALBUM" ? (
