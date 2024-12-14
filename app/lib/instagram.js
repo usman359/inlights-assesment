@@ -32,6 +32,7 @@ export async function saveInstagramPosts(userId, posts) {
 }
 
 export async function uploadToInstagram(accessToken, imageUrl, caption) {
+  console.log("Hello");
   // First, create container
   const containerResponse = await fetch(
     `https://graph.facebook.com/v18.0/me/media?image_url=${imageUrl}&caption=${caption}&access_token=${accessToken}`,
