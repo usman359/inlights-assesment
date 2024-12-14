@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
+export const dynamic = "force-dynamic"; // Disable static rendering
+
 export default function DashboardPage() {
   const { data: session, status } = useSession(); // Access session data and status
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  sessionStorage.setItem("session", JSON.stringify(session));
+  // sessionStorage.setItem("session", JSON.stringify(session));
 
   // Redirect unauthenticated users to login (optional)
   useEffect(() => {
