@@ -18,11 +18,11 @@ export async function POST(req) {
       "IGACDVB1ou9SZABZAE5QVldlSW5aZAzN1QXdPdEdfRkh4VFJydmZAtV1pwR1VES3RzbmVsN2ZA1dWtaSklOUDhQYnR0NmJlZAHZARSVF0amt5dHZAZAMzF2UzY0ZAHNRcjVOQmZAURFAzdGJlOTh6a0htSHlvMUJUdUNJdlpnMy14SnMzTU11TQZDZD";
 
     // Replace 'PAGE_ID' with your Facebook Page ID linked to the Instagram Business Account
-    const pageId = "3006205006197762";
+    const pageId = "100004248753756";
 
     // Step 1: Get the Instagram Business Account ID
     const accountResponse = await axios.get(
-      `https://graph.facebook.com/v17.0/${pageId}?fields=instagram_business_account&access_token=${accessToken}`
+      `https://graph.facebook.com/v21.0/${pageId}?fields=instagram_business_account&access_token=${accessToken}`
     );
 
     const instagramAccountId =

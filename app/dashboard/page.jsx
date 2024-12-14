@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function DashboardPage() {
   const [posts, setPosts] = useState([]);
@@ -93,7 +95,9 @@ export default function DashboardPage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold">Your Instagram Posts</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-800">
+        Your Instagram Posts
+      </h1>
       <div className="p-4">
         <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
           {url}
