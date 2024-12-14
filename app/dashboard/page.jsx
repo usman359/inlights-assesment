@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { supabase } from "../lib/supabase";
 
 export default function DashboardPage() {
   const [posts, setPosts] = useState([]);
@@ -17,7 +18,7 @@ export default function DashboardPage() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN}`
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=IGACDVB1ou9SZABZAE5QVldlSW5aZAzN1QXdPdEdfRkh4VFJydmZAtV1pwR1VES3RzbmVsN2ZA1dWtaSklOUDhQYnR0NmJlZAHZARSVF0amt5dHZAZAMzF2UzY0ZAHNRcjVOQmZAURFAzdGJlOTh6a0htSHlvMUJUdUNJdlpnMy14SnMzTU11TQZDZD`
         );
         const data = await response.json();
 
@@ -26,7 +27,27 @@ export default function DashboardPage() {
           return;
         }
 
-        setPosts(data.data || []);
+        const postsData = data.data || [];
+        setPosts(postsData);
+
+        // Save posts to Supabase
+        for (const post of postsData) {
+          const { id, caption, media_url, media_type, timestamp } = post;
+
+          const { error } = await supabase.from("posts").upsert({
+            id, // Ensure `id` is the primary key in your `posts` table
+            caption,
+            media_url,
+            media_type,
+            timestamp,
+          });
+
+          if (error) {
+            console.error("Error saving post to database:", error.message);
+          } else {
+            console.log("Post saved:", post);
+          }
+        }
       } catch (err) {
         console.error("Error fetching posts:", err);
       } finally {
