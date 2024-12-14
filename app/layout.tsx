@@ -24,12 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable}  antialiased`}>
-        <Providers>
-          <InstagramProvider>
+        <InstagramProvider>
+          <Providers>
             <Toaster />
             {children}
-          </InstagramProvider>
-        </Providers>
+          </Providers>
+        </InstagramProvider>
       </body>
     </html>
   );
