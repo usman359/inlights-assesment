@@ -31,7 +31,7 @@ export default function DashboardPage() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type&access_token=${process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN}`
         );
         const data = await response.json();
 
