@@ -5,7 +5,7 @@ export async function POST(req) {
     // Parse the incoming request
     const { imageUrl, caption } = await req.json();
     console.log(imageUrl);
-    // console.log(caption);
+    console.log(caption);
 
     if (!imageUrl) {
       return new Response(JSON.stringify({ error: "Image URL is required" }), {
