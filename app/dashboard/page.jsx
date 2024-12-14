@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { supabase } from "../lib/supabase";
@@ -11,6 +11,8 @@ export default function DashboardPage() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [caption, setCaption] = useState("");
   const [isPosting, setIsPosting] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -93,7 +95,7 @@ export default function DashboardPage() {
           },
         });
 
-        const imageUrl = uploadResponse.data.imgUrl; // Public URL of the uploaded image
+        const imageUrl = uploadResponse.data.imgUrl;
         toast.success(
           `Image ${file.name} uploaded successfully to Cloudinary!`
         );
