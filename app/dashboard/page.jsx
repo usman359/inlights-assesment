@@ -8,6 +8,8 @@ export default function DashboardPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  sessionStorage.setItem("session", JSON.stringify(session));
+
   // Redirect unauthenticated users to login (optional)
   useEffect(() => {
     if (status === "unauthenticated") {
