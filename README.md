@@ -1,6 +1,6 @@
 # Instagram Dashboard with Supabase Integration
 
-This project implements an Instagram Dashboard using the Instagram Graph API and Supabase. It allows users to fetch their Instagram posts, save them to a database, and upload new posts to Instagram.
+This project implements an Instagram Dashboard using the Instagram Graph API and Supabase as a backend service. It allows users to fetch their Instagram posts, save them to a database, and upload new posts to Instagram.
 
 ## Features
 
